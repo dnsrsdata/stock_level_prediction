@@ -49,7 +49,7 @@ Siga os passos abaixo para reproduzir o projeto localmente.
 A versão Python usada neste projeto foi a 3.9.13. Sugerimos que tenha a mesma versão instalada na sua máquina caso tente reproduzir localmente.
 1. Clone o repositório
    ```sh
-   git clone https://github.com/dnsrsdata/Football_Player_Rec_Syst.git
+   git clone https://github.com/dnsrsdata/stock_level_prediction
    ```
 2. Instale os pacotes
    ```sh
