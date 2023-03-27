@@ -18,9 +18,9 @@ O cliente concordou em compartilhar mais dados na forma de dados do sensor. Eles
 ![diagram_data](images/diagram.png)
 
 Este diagrama de modelo de dados nos trás 3 tabelas:
-- vendas = dados de vendas
-- sensor_storage_temperature = Dados IoT dos sensores de temperatura na instalação de armazenamento para os produtos
-- sensor_stock_levels = níveis estimados de estoque de produtos com base em sensores IoT
+- vendas: dados de vendas
+- sensor_storage_temperature: Dados IoT dos sensores de temperatura na instalação de armazenamento para os produtos
+- sensor_stock_levels: níveis estimados de estoque de produtos com base em sensores IoT
 
 Relações entre tabelas:
 
