@@ -1,26 +1,33 @@
 # Stock level prediction (Em desenvolvimento............)
-## Overview
+## Sobre o problema
 
-Gala Groceries é uma cadeia de supermercados liderada por tecnologia com sede nos EUA. Eles dependem muito de novas tecnologias, como a IoT, para lhes dar uma vantagem competitiva sobre outros supermercados. 
+Gala Groceries é uma cadeia de supermercados liderada por tecnologia com sede nos EUA. Eles dependem muito de novas 
+tecnologias, como a IoT, para lhes dar uma vantagem competitiva sobre outros supermercados. 
 
-Eles se orgulham de fornecer a melhor qualidade e produtos frescos de fornecedores de origem local. No entanto, isso traz muitos desafios para cumprir consistentemente esse objetivo o ano todo.
+Eles se orgulham de fornecer a melhor qualidade e produtos frescos de fornecedores de origem local. No entanto, isso 
+traz muitos desafios para cumprir consistentemente esse objetivo o ano todo.
 
-Gala Groceries procurou a Cognizant para ajudá-los com um problema na cadeia de suprimentos. Compras são itens altamente perecíveis. Se você exagerar, estará desperdiçando dinheiro com armazenamento e desperdício excessivos, mas se você subestima, corre o risco de perder clientes. Eles querem saber como estocar melhor os itens que vendem.
+Gala Groceries procurou a Cognizant para ajudá-los com um problema na cadeia de suprimentos. Compras são itens altamente
+perecíveis. Se você exagerar, estará desperdiçando dinheiro com armazenamento e desperdício excessivos, mas se você
+subestima, corre o risco de perder clientes. Eles querem saber como estocar melhor os itens que vendem.
 
 ## Questão de negócio
 
-Podemos prever com precisão os níveis de estoque de produtos com base em dados de vendas e dados de sensores a cada hora, a fim de adquirir produtos de maneira mais inteligente de nossos fornecedores? 
+Podemos prever com precisão os níveis de estoque de produtos com base em dados de vendas e dados de sensores a cada 
+hora, a fim de adquirir produtos de maneira mais inteligente de nossos fornecedores? 
 
 ## Sobre os dados
 
-O cliente concordou em compartilhar mais dados na forma de dados do sensor. Eles usam sensores para medir as instalações de armazenamento de temperatura onde os produtos são armazenados no armazém e também usam níveis de estoque dentro dos refrigeradores e freezers na loja. 
+O cliente concordou em compartilhar mais dados na forma de dados do sensor. Eles usam sensores para medir as instalações
+de armazenamento de temperatura onde os produtos são armazenados no armazém e também usam níveis de estoque dentro dos 
+refrigeradores e freezers na loja. 
 
 ![diagram_data](images/diagram.png)
 
 Este diagrama de modelo de dados nos trás 3 tabelas:
-- vendas: dados de vendas
-- sensor_storage_temperature: Dados IoT dos sensores de temperatura na instalação de armazenamento para os produtos
-- sensor_stock_levels: níveis estimados de estoque de produtos com base em sensores IoT
+- vendas = dados de vendas
+- sensor_storage_temperature = Dados IoT dos sensores de temperatura na instalação de armazenamento para os produtos
+- sensor_stock_levels = níveis estimados de estoque de produtos com base em sensores IoT
 
 Relações entre tabelas:
 
@@ -28,17 +35,48 @@ São representadas pelas setas, indicando quais colunas usar para mesclagem.
 
 ## Métricas
 
-Para a avaliação do modelo, serão usadas MAE e RMSE, visando buscar um equilibrio entre ambos. Com uma proximidade entre ambas, podemos penalizar valores discrepantes nas previsões, evitando grandes erros de previsão.
+Para a avaliação do modelo, serão usadas MAE e RMSE, visando buscar um equilibrio entre ambos. Com uma proximidade entre 
+elas, saberemos que valores muito discrepantes estão sendo fornecidos nas previsões, evitando grandes erros.
 
 ![MAE](images/MAE.gif)
 
 ![RMSE](images/RMSE.gif)
 
 ## Característica dos dados
+No geral, os dados estão divididos em 3 tabelas, conforme diagrama exposto em sessão anterior. Após análise exploratória
+inicial, foi possível identificar alguns pontos importantes do ponto de vista do negócio e de modelagem. 
 
+#### Modelagem:
+- No geral, temos 3 colunas categóricas, 5 numéricas e 1 datetime. As outras representam id's únicos.
+- As colunas categóricas estão bem balanceadas.
+- Duas colunas numéricas da tabela **df_vendas** apresentam outliers, sendo necessário investigar se são naturais ou 
+não.
+- Apesar de ser datetime, a coluna que apresenta este tipo de dado está no formato de **object**, sendo necessário 
+alterar o tipo
+- Não existem valores duplicados
+- Para a junção das tabelas, a coluna de id e datas devem ser usados. 
+- As datas das vendas são diferentes das datas das tabelas que contém dados dos sensores, será necessário alterar esse
+dado para que possam ser usados para juntar as tabelas.
 
-## Resultado da análise exploratória
+#### Negócio:
+- Frutas e vegetais são os itens mais vendidos.
+- Produtos de cozinha e carnes são as categorias que mais arrecadam. Frutas e vegerais não estão nem entre os 
+50% maiores.
+- A maior compra realizada foi de 4 itens.
+- Cerca de 79.55% dos clientes possuem algum tipo de assinatura
 
+Como dito anteriormente, o número de registros nas tabelas dos sensores é superior ao de vendas, fazendo com que a 
+periodicidade entre as tabelas sejam diferentes, impossibilitando uma junção correta entre elas. Para resolver isso
+irei alterar o timestamp apenas para data e hora sem minutos, pois como definido no problema, os sensores realizarão
+medidas hora a hora.
+
+Como a transformação funcionará:
+ 
+06/05/2020 19:45 -> 06/05/2020 19:00
+<br>
+09/04/2019 16:10 -> 09/04/2019 16:00
+<br>
+19/10/2021 09:30 -> 19/10/2021 09:00
 
 ## Melhorias
 
