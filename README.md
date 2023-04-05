@@ -35,8 +35,9 @@ São representadas pelas setas, indicando quais colunas usar para mesclagem.
 
 ## Métricas
 
-Para a avaliação do modelo, serão usadas MAE e RMSE, visando buscar um equilibrio entre ambos. Com uma proximidade entre 
-elas, saberemos que valores muito discrepantes estão sendo fornecidos nas previsões, evitando grandes erros.
+Para a avaliação do modelo, serão usadas MAE e RMSE, visando buscar um valor que seja o mais próximo possível a 0
+e que sejam próximos entre si. Com essa proximidade, saberemos que previsões muito discrepantes dos valores reais não 
+estão sendo feitas pelo modelo.
 
 ![MAE](images/MAE.gif)
 
@@ -49,7 +50,7 @@ inicial, foi possível identificar alguns pontos importantes do ponto de vista d
 #### Modelagem:
 - No geral, temos 3 colunas categóricas, 5 numéricas e 1 datetime. As outras representam id's únicos.
 - As colunas categóricas estão bem balanceadas.
-- Duas colunas numéricas da tabela **df_vendas** apresentam outliers, sendo necessário investigar se são naturais ou 
+- As colunas numéricas **total** e **unit_price** da tabela **df_vendas** apresentam outliers, sendo necessário investigar se são naturais ou 
 não.
 - Apesar de ser datetime, a coluna que apresenta este tipo de dado está no formato de **object**, sendo necessário 
 alterar o tipo
@@ -57,6 +58,7 @@ alterar o tipo
 - Para a junção das tabelas, a coluna de id e datas devem ser usados. 
 - As datas das vendas são diferentes das datas das tabelas que contém dados dos sensores, será necessário alterar esse
 dado para que possam ser usados para juntar as tabelas.
+- Não há valores missing
 
 #### Negócio:
 - Frutas e vegetais são os itens mais vendidos.
@@ -65,18 +67,18 @@ dado para que possam ser usados para juntar as tabelas.
 - A maior compra realizada foi de 4 itens.
 - Cerca de 79.55% dos clientes possuem algum tipo de assinatura
 
-Como dito anteriormente, o número de registros nas tabelas dos sensores é superior ao de vendas, fazendo com que a 
-periodicidade entre as tabelas sejam diferentes, impossibilitando uma junção correta entre elas. Para resolver isso
-irei alterar o timestamp apenas para data e hora sem minutos, pois como definido no problema, os sensores realizarão
-medidas hora a hora.
+Como dito anteriormente, o número de registros nas tabelas dos sensores é superior ao de vendas, fazendo com que 
+tenhamos timestamps diferentes entre as tabelas, impossibilitando uma junção correta entre elas. Para resolver isso
+irei alterar o timestamp apenas para data, hora e minutos, adicionando o valor da temperatura e porcentagem de estoque 
+de acordo com a medição passada mais próxima da data e hora da venda.
 
 Como a transformação funcionará:
  
-06/05/2020 19:45 -> 06/05/2020 19:00
+06/05/2020 19:45:26 -> 06/05/2020 19:45
 <br>
-09/04/2019 16:10 -> 09/04/2019 16:00
+09/04/2019 16:10:08 -> 09/04/2019 16:10
 <br>
-19/10/2021 09:30 -> 19/10/2021 09:00
+19/10/2021 09:30:21 -> 19/10/2021 09:30
 
 ## Melhorias
 
