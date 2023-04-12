@@ -129,7 +129,7 @@ dmypy.json
 .pyre/
 
 # Mlflow logs
-notebooks/mlruns
+mlruns
 
 # VSCode configs
 .idea
