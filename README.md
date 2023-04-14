@@ -62,23 +62,22 @@ dado para que possam ser usados para juntar as tabelas.
 
 #### Negócio:
 - Frutas e vegetais são os itens mais vendidos.
-- Produtos de cozinha e carnes são as categorias que mais arrecadam. Frutas e vegerais não estão nem entre os 
+- Produtos de cozinha e carnes são as categorias que mais arrecadam. Frutas e vegetais não estão nem entre os 
 50% maiores.
 - A maior compra realizada foi de 4 itens.
-- Cerca de 79.55% dos clientes possuem algum tipo de assinatura
+- Cerca de 20.45% dos clientes não possuem nenhum tipo de assinatura
 
 Como dito anteriormente, o número de registros nas tabelas dos sensores é superior ao de vendas, fazendo com que 
 tenhamos timestamps diferentes entre as tabelas, impossibilitando uma junção correta entre elas. Para resolver isso
-irei alterar o timestamp apenas para data, hora e minutos, adicionando o valor da temperatura e porcentagem de estoque 
-de acordo com a medição passada mais próxima da data e hora da venda.
+irei alterar o timestamp apenas para data e hora, adicionando o valor da temperatura, porcentagem de estoque na última hora e a porcentagem atual (target) conforme valores do timestamp.
 
 Como a transformação funcionará:
- 
-06/05/2020 19:45:26 -> 06/05/2020 19:45
+
+06/05/2020 19:45:26 -> 06/05/2020 19:00:00
 <br>
-09/04/2019 16:10:08 -> 09/04/2019 16:10
+09/04/2019 16:10:08 -> 09/04/2019 16:00:00
 <br>
-19/10/2021 09:30:21 -> 19/10/2021 09:30
+19/10/2021 09:30:21 -> 19/10/2021 09:00:00
 
 ## Melhorias
 
