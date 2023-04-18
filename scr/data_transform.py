@@ -105,7 +105,6 @@ def joining_data(df_vendas, df_temperatura, df_estoque_lvl):
     
     # Unindo as  e salvando os dados
     df_unido = df_vendas.merge(df_temperatura, on = 'timestamp')
-    df_unido.to_csv('../data/interim/dados_unidos.csv')
     
     return df_unido
 
