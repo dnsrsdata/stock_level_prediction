@@ -24,7 +24,7 @@ refrigeradores e freezers na loja.
 
 ![diagram_data](images/diagram.png)
 
-Este diagrama de modelo de dados nos trás 3 tabelas:
+Este diagrama de modelo de dados nos traz 3 tabelas:
 - vendas = dados de vendas
 - sensor_storage_temperature = Dados IoT dos sensores de temperatura na instalação de armazenamento para os produtos
 - sensor_stock_levels = níveis estimados de estoque de produtos com base em sensores IoT
@@ -69,7 +69,7 @@ dado para que possam ser usados para juntar as tabelas.
 
 Como dito anteriormente, o número de registros nas tabelas dos sensores é superior ao de vendas, fazendo com que 
 tenhamos timestamps diferentes entre as tabelas, impossibilitando uma junção correta entre elas. Para resolver isso
-irei alterar o timestamp apenas para data e hora, adicionando o valor da temperatura, porcentagem de estoque na última hora e a porcentagem atual (target) conforme valores do timestamp.
+irei alterar o timestamp apenas para data e hora, adicionando o valor da temperatura, ultima porcentagem de estoque registrada daquele item e a porcentagem registrada na proxima hora (target) conforme valores do timestamp.
 
 Como a transformação funcionará:
 
@@ -80,6 +80,9 @@ Como a transformação funcionará:
 19/10/2021 09:30:21 -> 19/10/2021 09:00:00
 
 ## Melhorias
+
+[✔️] Criar scripts python para a atualização do projeto quando novos dados forem fornecidos
+[⏳] Containerizar o projeto
 
 ## Instruções
 
@@ -98,6 +101,10 @@ A versão Python usada neste projeto foi a 3.9.13. Sugerimos que tenha a mesma v
 ## Descrição dos arquivos
 
 ## Resultados
+
+Foi gerado um modelo capaz de prever qual o nível do estoque na próxima hora baseado em uma venda. Além disso, ele pode ser atualizado quando novos dados forem fornecidos. Também temos um script que faz toda a limpeza e seleção de colunas, para quando os novos dados vierem, as previsões sejam concatenadas aos dados inseridos.
+
+
 
 
 
