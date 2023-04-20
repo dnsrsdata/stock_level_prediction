@@ -19,8 +19,7 @@ hora, a fim de adquirir produtos de maneira mais inteligente de nossos fornecedo
 ## Sobre os dados
 
 O cliente concordou em compartilhar mais dados na forma de dados do sensor. Eles usam sensores para medir as instalações
-de armazenamento de temperatura onde os produtos são armazenados no armazém e também usam níveis de estoque dentro dos 
-refrigeradores e freezers na loja. 
+de armazenamento de temperatura onde os produtos são armazenados no armazém e também usam níveis de estoque dentro dos refrigeradores e freezers na loja. 
 
 ![diagram_data](images/diagram.png)
 
@@ -56,8 +55,7 @@ não.
 alterar o tipo
 - Não existem valores duplicados
 - Para a junção das tabelas, a coluna de id e datas devem ser usados. 
-- As datas das vendas são diferentes das datas das tabelas que contém dados dos sensores, será necessário alterar esse
-dado para que possam ser usados para juntar as tabelas.
+- As datas das vendas são diferentes das datas das tabelas que contém dados dos sensores, devido a isso, será necessário encontrar um meio que permita a união das tabelas usando a coluna das datas.
 - Não há valores missing
 
 #### Negócio:
@@ -81,8 +79,8 @@ Como a transformação funcionará:
 
 ## Melhorias
 
-[✔️] Criar scripts python para a atualização do projeto quando novos dados forem fornecidos
-[⏳] Containerizar o projeto
+[✔️] Criar scripts python para a atualização do projeto quando novos dados forem fornecidos. <br>
+[⏳] Containerizar o projeto.
 
 ## Instruções
 
@@ -100,9 +98,72 @@ A versão Python usada neste projeto foi a 3.9.13. Sugerimos que tenha a mesma v
 
 ## Descrição dos arquivos
 
+    - data
+    |- interim
+    | |- dados_unidos.csv  # dados provenientes da união das tabelas raw
+    |- processed
+    | |- dados_para_treino.csv  # dados limpos e prontos para o treinamento de modelos de ML
+    |- raw
+    | |- sales.csv  # dados de vendas
+    | |- sensor_stock_levels.csv  # dados dos sensores com o nível de estoque
+    | |- sensor_storage_temperature.csv  # dados dos sensores de temperatura
+    |- to_predict
+    | |- sales.csv  # dados de vendas
+    | |- sensor_stock_levels.csv  # dados dos sensores com o nível de estoque
+    | |- sensor_storage_temperature.csv  # dados dos sensores de temperatura
+    |
+    - images
+    |- plots  
+    | |- arrecadacaoXcategoria.png # Imagem mostrando a arrecadação por categoria
+    | |- arrecadacaoXtipoConsumidor.png # Imagem mostrando a arrecadação por tipo de consumidor
+    | |- correlacaoVariaveis.png # Imagem mostrando a correlação entre as variáveis
+    | |- distribuicaoPrcntEstoque.png # Imagem mostrando a distribuição dos valores de porcentagem de estoque
+    | |- distribuicaoTemperatura.png # Imagem mostrando a distribuição dos valores de temperatura
+    | |- melhor_metrica.png # Imagem mostrando a melhor combinação de métricas para o modelo
+    | |- metricas.png # Imagem mostrando as métricas gerais com diversas combinações entre elas para o modelo
+    | |- outliersColTotal.png # Imagem mostrando um boxplot com os outliers da coluna Total
+    | |- outliersColUnitPrice.png # Imagem mostrando um boxplot com os outliers da coluna UnitPrice
+    | |- pagamentosMaisUtilizados.png # Imagem mostrando a quantidade de vezes que cada tipo de pagamento foi utilizado
+    | |- qtdClientesXcategory.png # Imagem mostrando a quantidade de clientes por categoria de assinatura
+    | |- qtdItensXtransacao_v2.png # Imagem mostrando gráfico alternativo da quantidade de itens comprados por transação
+    | |- qtdItensXtransacao.png # Imagem mostrando a quantidade de itens comprados por transação
+    | |- relacaoVarNumericas_v2.png # Imagem mostrando a relação entre variáveis numéricas pós engenharia de features
+    | |- relacaoVarNumericas.png # Imagem mostrando a relação entre variáveis numéricas pré engenharia de features
+    | |- segunda_melhor_metrica.png # Imagem mostrando a segunda melhor combinação de métricas para o modelo
+    | |- vendasXtipoProduto.png # Imagem mostrando quantidade de vendas por categoria de produto
+    |- diagram.png  # Diagrama de relacionamento entre as tabelas
+    |- MAE.gif  # Fórmula matemática do MAE
+    |- RMSE.gif  # Fórmula matemática do RMSE
+    |
+    - metrics
+    |- experiments  
+    | |- resultados.csv # Tabela contendo os resultados da rodada de experimentos gerais
+    |- experiments_tunning  
+    | |- resultados.png # Tabela contendo os resultados da rodada de experimentos de tunning de modelo
+    |
+    - models
+    |- pipeline.pkl # Pipeline com transformadores e modelo 
+    |
+    - notebooks
+    |- EDA.ipynb # Notebook onde a análise exploratória foi realizada
+    |- ML_experiments.ipynb # Notebook onde os experimentos foram conduzidos
+    |- transform_data.ipynb # Notebook onde o processo de limpeza de dados e engenharia de features foram realizados
+    |
+    - predicoes
+    |- data_labeled.csv  # Tabela onde os dados passados para o modelo são salvos junto de sua predição
+    |
+    - scr
+    |- data_transform.py  # Script para limpar os dados e realizar engenharia de features para treinamento do modelo
+    |- predict.py  # Script usado para passar dados e obter previsões
+    |- train_model.py  # Script usado para treinar novamente o modelo
+    |
+    - README.md  # Aruivo contendo as informações do modelo
+    - requirements.txt # Arquivo contendo os pacotes necessários para reproduzir o projeto
+    - Makefile # Arquivo contendo a automações de etapas do projeto
+
 ## Resultados
 
-Foi gerado um modelo capaz de prever qual o nível do estoque na próxima hora baseado em uma venda. Além disso, ele pode ser atualizado quando novos dados forem fornecidos. Também temos um script que faz toda a limpeza e seleção de colunas, para quando os novos dados vierem, as previsões sejam concatenadas aos dados inseridos.
+Foi gerado um modelo capaz de prever qual o nível do estoque na próxima hora baseado em uma venda. Além disso, o modelo pode ser melhorado quando novos dados forem fornecidos. Também temos um script que faz toda a limpeza e seleção de colunas, para quando os novos dados vierem, as previsões sejam concatenadas aos dados inseridos.
 
 
 
