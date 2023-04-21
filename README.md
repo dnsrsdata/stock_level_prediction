@@ -91,10 +91,19 @@ A versão Python usada neste projeto foi a 3.9.13. Sugerimos que tenha a mesma v
    ```sh
    git clone https://github.com/dnsrsdata/stock_level_prediction
    ```
-2. Instale os pacotes
+2. Construa uma Imagem
    ```sh
    pip install -r requirements.txt
    ```
+3. Para obter previsões dos dados da pasta data/to_predict
+   ```sh
+   docker run -it --rm --name container_teste -v "C:\Users\Daniel\OneDrive\Documentos\stock_level_prediction\predicoes:/projeto_estoque/predicoes" teste_cd python3 scr/predict.py data/to_predict/sales.csv data/to_predict/sensor_storage_temperature.csv data/to_predict/sensor_stock_levels.csv models/pipeline.pkl predicoes/data_labeled.csv
+
+2. Construa uma Imagem
+   ```sh
+   pip install -r requirements.txt
+
+
 
 ## Descrição dos arquivos
 
@@ -108,9 +117,9 @@ A versão Python usada neste projeto foi a 3.9.13. Sugerimos que tenha a mesma v
     | |- sensor_stock_levels.csv  # dados dos sensores com o nível de estoque
     | |- sensor_storage_temperature.csv  # dados dos sensores de temperatura
     |- to_predict
-    | |- sales.csv  # dados de vendas
-    | |- sensor_stock_levels.csv  # dados dos sensores com o nível de estoque
-    | |- sensor_storage_temperature.csv  # dados dos sensores de temperatura
+    | |- sales.csv  # dados de vendas para predição. É importante que o nome seja mantido para outras tabelas desse mesmo tipo.
+    | |- sensor_stock_levels.csv  # dados dos sensores com o nível de estoque para predição. É importante que o nome seja mantido para outras tabelas desse mesmo tipo.
+    | |- sensor_storage_temperature.csv  # dados dos sensores de temperatura para predição. É importante que o nome seja mantido para outras tabelas desse mesmo tipo.
     |
     - images
     |- plots  
@@ -130,6 +139,7 @@ A versão Python usada neste projeto foi a 3.9.13. Sugerimos que tenha a mesma v
     | |- relacaoVarNumericas_v2.png # Imagem mostrando a relação entre variáveis numéricas pós engenharia de features
     | |- relacaoVarNumericas.png # Imagem mostrando a relação entre variáveis numéricas pré engenharia de features
     | |- segunda_melhor_metrica.png # Imagem mostrando a segunda melhor combinação de métricas para o modelo
+    | |- terceira_melhor_metrica.png # Imagem mostrando a terceira melhor combinação de métricas para o modelo
     | |- vendasXtipoProduto.png # Imagem mostrando quantidade de vendas por categoria de produto
     |- diagram.png  # Diagrama de relacionamento entre as tabelas
     |- MAE.gif  # Fórmula matemática do MAE
@@ -150,7 +160,7 @@ A versão Python usada neste projeto foi a 3.9.13. Sugerimos que tenha a mesma v
     |- transform_data.ipynb # Notebook onde o processo de limpeza de dados e engenharia de features foram realizados
     |
     - predicoes
-    |- data_labeled.csv  # Tabela onde os dados passados para o modelo são salvos junto de sua predição
+    |- data_labeled.csv  # Tabela onde os dados passados para o modelo são salvos junto de sua predição (disponível após executar o projeto)
     |
     - scr
     |- data_transform.py  # Script para limpar os dados e realizar engenharia de features para treinamento do modelo
