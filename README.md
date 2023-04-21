@@ -1,4 +1,4 @@
-# Stock level prediction (Em desenvolvimento............)
+# Stock level prediction
 ## Sobre o problema
 
 Gala Groceries é uma cadeia de supermercados liderada por tecnologia com sede nos EUA. Eles dependem muito de novas 
