@@ -84,26 +84,21 @@ Como a transformação funcionará:
 
 ## Instruções
 
-Siga os passos abaixo para reproduzir o projeto localmente.
+Este projeto está dentro de um container, instale o Docker para reproduzir localmente sem problemas.
 
-A versão Python usada neste projeto foi a 3.9.13. Sugerimos que tenha a mesma versão instalada na sua máquina caso tente reproduzir localmente.
 1. Clone o repositório
    ```sh
    git clone https://github.com/dnsrsdata/stock_level_prediction
    ```
-2. Construa uma Imagem
+2. Construa uma Imagem a partir do Dockerfile
    ```sh
-   pip install -r requirements.txt
+   docker build -t meu_container .
    ```
-3. Para obter previsões dos dados da pasta data/to_predict
+3. Para obter previsões dos dados
    ```sh
-   docker run -it --rm --name container_teste -v "C:\Users\Daniel\OneDrive\Documentos\stock_level_prediction\predicoes:/projeto_estoque/predicoes" teste_cd python3 scr/predict.py data/to_predict/sales.csv data/to_predict/sensor_storage_temperature.csv data/to_predict/sensor_stock_levels.csv models/pipeline.pkl predicoes/data_labeled.csv
-
-2. Construa uma Imagem
-   ```sh
-   pip install -r requirements.txt
-
-
+   docker run -it --rm --name container_teste -v "(REMOVA OS PARÊNTESIS E COLE AQUI O PATH ABSOLUTO DA PASTA data/to_predict):/projeto_estoque/data/to_predict" -v "(REMOVA OS PARÊNTESIS E COLE AQUI O PATH ABSOLUTO DA PASTA predicoes):/projeto_estoque/predicoes" teste_cd python3 scr/predict.py data/to_predict/sales.csv data/to_predict/sensor_storage_temperature.csv data/to_predict/sensor_stock_levels.csv models/pipeline.pkl predicoes/data_labeled.csv
+   ```
+   É importante se atentar as duas mudanças no comando que ficarão ao encargo do usuário, copiando os respectivos paths e colando em seus respectivos lugares. Esta parte é importante, pois através dela será criado um canal de comunicação entre o container e a máquina local, permitindo que você receba as previsões na pasta **predicoes** e possa colocar novos dados para predição na pasta **to_predict**. Outro fator importante é manter a mesma nomeação dos arquivos que já estão na pasta. Caso o nome seja alterado, resultará em erro.
 
 ## Descrição dos arquivos
 
@@ -118,7 +113,7 @@ A versão Python usada neste projeto foi a 3.9.13. Sugerimos que tenha a mesma v
     | |- sensor_storage_temperature.csv  # dados dos sensores de temperatura
     |- to_predict
     | |- sales.csv  # dados de vendas para predição. É importante que o nome seja mantido para outras tabelas desse mesmo tipo.
-    | |- sensor_stock_levels.csv  # dados dos sensores com o nível de estoque para predição. É importante que o nome seja mantido para outras tabelas desse mesmo tipo.
+    | |- sensor_stock_levels.csv  # dados dos sensores com o nível de estoque para predição. É importante que o nome seja mantido para outras   tabelas desse mesmo tipo.
     | |- sensor_storage_temperature.csv  # dados dos sensores de temperatura para predição. É importante que o nome seja mantido para outras tabelas desse mesmo tipo.
     |
     - images
@@ -167,7 +162,8 @@ A versão Python usada neste projeto foi a 3.9.13. Sugerimos que tenha a mesma v
     |- predict.py  # Script usado para passar dados e obter previsões
     |- train_model.py  # Script usado para treinar novamente o modelo
     |
-    - README.md  # Aruivo contendo as informações do modelo
+    - Dockerfile  # Arquivo contendo as informações para aconstrução do ambiente Docker
+    - README.md  # Arquivo contendo as informações do modelo
     - requirements.txt # Arquivo contendo os pacotes necessários para reproduzir o projeto
     - Makefile # Arquivo contendo a automações de etapas do projeto
 
