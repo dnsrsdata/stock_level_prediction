@@ -80,7 +80,7 @@ Como a transformação funcionará:
 ## Melhorias
 
 [✔️] Criar scripts python para a atualização do projeto quando novos dados forem fornecidos. <br>
-[⏳] Containerizar o projeto.
+[✔️] Containerizar o projeto.
 
 ## Instruções
 
