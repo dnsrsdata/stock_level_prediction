@@ -98,7 +98,13 @@ Este projeto está dentro de um container, instale o Docker para reproduzir loca
    ```sh
    docker run -it --rm --name container_teste -v "(REMOVA OS PARÊNTESIS E COLE AQUI O PATH ABSOLUTO DA PASTA data/to_predict):/projeto_estoque/data/to_predict" -v "(REMOVA OS PARÊNTESIS E COLE AQUI O PATH ABSOLUTO DA PASTA predicoes):/projeto_estoque/predicoes" meu_container python3 scr/predict.py data/to_predict/sales.csv data/to_predict/sensor_storage_temperature.csv data/to_predict/sensor_stock_levels.csv models/pipeline.pkl predicoes/data_labeled.csv
    ```
-   É importante reparar que há duas mudanças no comando que ficarão ao encargo do usuário, copiando os respectivos paths e colando em seus respectivos lugares. Esta parte é importante, pois através dela será criado um canal de comunicação entre o container e a máquina local, permitindo que você receba as previsões na pasta **predicoes** e possa colocar novos dados para predição na pasta **to_predict**. Outro fator importante é manter a mesma nomeação dos arquivos da pasta **to_predict** em caso de inserção de novos dados. Caso o nome seja alterado, resultará em erro.
+É importante reparar que há duas mudanças no comando que ficarão ao encargo do usuário, copiando os respectivos paths e colando em seus respectivos lugares. Esta parte é importante, pois através dela será criado um canal de comunicação entre o container e a máquina local, permitindo que você receba as previsões na pasta **predicoes** e possa colocar novos dados para predição na pasta **to_predict**. Outro fator importante é manter a mesma nomeação dos arquivos da pasta **to_predict** em caso de inserção de novos dados. Caso o nome seja alterado, resultará em erro.
+   
+Segue vídeo tutorial:   
+   
+<video src="https://user-images.githubusercontent.com/59318930/233751442-505c2676-b909-46a1-9e2a-4c78e73972cf.mp4" controls="controls" style="max-width: 730px;">
+</video>
+
 
 ## Descrição dos arquivos
 
@@ -170,6 +176,8 @@ Este projeto está dentro de um container, instale o Docker para reproduzir loca
 ## Resultados
 
 Foi gerado um modelo capaz de prever qual o nível do estoque na próxima hora baseado em uma venda. Além disso, o modelo pode ser melhorado quando novos dados forem fornecidos. Também temos um script que faz toda a limpeza e seleção de colunas, para quando os novos dados vierem, as previsões sejam concatenadas aos dados inseridos.
+
+
 
 
 
