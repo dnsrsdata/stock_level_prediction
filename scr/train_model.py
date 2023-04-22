@@ -102,7 +102,7 @@ def salvarmodelo(modelo, path, filename):
     :param filename: nome a ser dado ao modelo
     :return: None
     """ 
-    joblib.dump(modelo, f"../{path}/{filename}.pkl")   
+    joblib.dump(modelo, f"{path}/{filename}.pkl")   
 
 def main():
     if len(sys.argv) == 2:
