@@ -105,6 +105,12 @@ Segue vídeo tutorial:
 <video src="https://user-images.githubusercontent.com/59318930/233751442-505c2676-b909-46a1-9e2a-4c78e73972cf.mp4" controls="controls" style="max-width: 730px;">
 </video>
 
+4. Para retreinar o modelo com novos dados
+   ```sh
+   docker run -it --rm --name container_teste -v "(REMOVA OS PARÊNTESIS E COLE AQUI O PATH ABSOLUTO DA PASTA data\raw):/projeto_estoque/data/raw" meu_container python3 scr/train_model.py  data/processed/dados_para_treino.csv
+   ```
+
+
 
 ## Descrição dos arquivos
 
